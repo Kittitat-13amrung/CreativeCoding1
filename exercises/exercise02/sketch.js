@@ -1,81 +1,57 @@
-
-
-let params = {
-	angle: 180,
-	angleMin: 0,
-    angleMax: 360,
-    angleStep: 5,
-
-	posX: 250,
-	posXMin: 0,
-    posXMax: 500,
-    posXStep: 2,
-    
-    posY: 250,
-	posYMin: 0,
-    posYMax: 500,
-    
-    shapeW: 150,
-	shapeWMin: 10,
-    shapeWMax: 290,
-
-    shapeH: 150,
-	shapeHMin: 10,
-    shapeHMax: 290,
-    
-    bgColor: [180, 255, 255],
-    fColor: [255, 0, 0],
-    fillToggle: true
-    
-}
-
-
-let myPos;
-let visible = true;
-var gui;
-
+let ball1;
+let ball2;
+let ball3;
+let ball4;
+let collision;
 
 function setup() {
-    angleMode(DEGREES);
-    createCanvas(500, 500);
-    background(params.bgColor);
-    
-    myPos = createVector(params.posX, params.posY);
-    // create the GUI
-	gui = createGui('My Settings');
-	gui.addObject(params);
-    gui.setPosition(650, 250);
- 
-    
+    createCanvas(750, 500);
+    // instanciating new objects into the variables
+    ball1 = new Ball(0, 0, 2, 3, 10, 255, 120, 50);
+    ball2 = new Ball(10, 10, 4, 3, 10, 120, 220, 100);
+    ball3 = new Ball(200, 240, 6.3, 13.6, 20, 255, 30, 100);
+    ball4 = new Ball(100, 240, 11, 10, 20, 100, 100, 32);
 }
 
 function draw() {
-    clear();
-    myPos = createVector(params.posX, params.posY);
-    //console.log(myPos.x, myPos.y);
+    background(120);
 
-    background(params.bgColor);
-    rectMode(CENTER);
+    // QUESTION 1
+    ball1.drawBall();
+    ball1.moveBall();
 
-    if (params.fillToggle == true) {
-        fill(params.fColor);
-    } else {
-        noFill();
+    // QUESTION 2
+    ball2.drawBall();
+    ball2.moveBall();
+
+    // QUESTION 3
+    ball3.drawBall();
+    ball3.bounceBall();
+
+    // QUESTION 4
+    ball4.drawBall();
+    ball4.bounceBall();
+
+    // Check for collision of the two given ball
+    collision = ballCollision(ball3.x, ball3.y, ball4.x, ball4.y);
+    // Display the distance between the two given ball
+    textAlign(CENTER);
+    text(collision, width / 2, height / 2);
+
+    // Conditional statement to reflect the ball if the two given ball collide
+    if (collision <= ball3.radius + ball4.radius) {
+        ball3.vx *= -1;
+        ball3.vy *= -1;
+        ball4.vx *= -1;
+        ball4.vy *= -1;
     }
-    push();
-    translate(myPos.x, myPos.y);
-    rotate(params.angle);
-        rect(0, 0,params.shapeW,params.shapeH, 25,75,25,75);
-    pop();
 }
 
-// check for keyboard events
-function keyPressed() {
-    switch(key) {
-      // type p to hide / show the GUI
-      case 'p':
-        visible = !visible;
-        if(visible) gui.show(); else gui.hide();
-        break;
-    }
-  }
+// function to calculate the distance between the two given ball
+function ballCollision(x1, y1, x2, y2) {
+    let dist;
+
+    dist = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+    return dist;
+}
