@@ -15,7 +15,7 @@ class Planet {
             let d = random((this.radius + r), (this.radius + r)*2);
             let o = random(-0.1, 0.1);
             this.planets[i] = new Planet(r, d, o);
-            if (level < 0) {
+            if (level < 1) {
                 let num = random(0, 4);
                 this.planets[i].spawnMoons(num, level);
             }
@@ -35,15 +35,16 @@ class Planet {
     render() {
         push();
         
-        let v2 = createVector(1, 0, 1);
+        let v2 = createVector(2, 1, 2);
         let p = this.v.cross(v2);
         p.mult(5);
         // console.log(p);
-        rotate(this.angle, p.x, p.y, p.z);
+        rotate(this.angle, this.x, this.y, p.z);
+        // console.log(p.x);
         // fill(255);
         stroke(255);
         // line(0, 0, 0, this.v.x*10, this.v.y*10, this.v.y*10, this.v.z*10);
-        // line(0, 0, 0, v.x*10, v.y*10, v.y*10, v.z*10);
+        // line(0, 0, 0, this.x*10, p.y*10, p.y*10, p.z*10);
         
         translate(this.v.x, this.v.y, this.v.z);
         noStroke();
