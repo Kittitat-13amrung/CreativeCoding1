@@ -14,11 +14,10 @@ class Rock {
     render() {
         // translate(width/2, height/2);
         push();
-        translate(this.pos.x, 0, this.pos.z);
+        translate(this.pos.x, this.pos.y, this.pos.z);
         rotate(this.rotation);
         fill(90);
         // sphere(10);
-        ellipse(width/2, height/2, 30);
 		beginShape();
 		vertex(10, 0, 0);
 		vertex(-10, 0, 10);
@@ -40,11 +39,9 @@ class Rock {
     }
 
     checkCenter() {
-        let v2 = createVector(1, 0, 1);
-        let p = this.pos.cross(v2);
         let dx, dy, centerPos;
-        dx = (width / 2) - p.x;
-        dy = (height / 2) - p.y;
+        dx = (width / 2) - this.pos.x;
+        dy = (height / 2) - this.pos.z;
         centerPos = atan2(dy, dx);
         return centerPos;
     }
