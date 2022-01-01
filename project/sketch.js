@@ -27,6 +27,8 @@ let force = 0.01;
 let globe;
 let meteor;
 
+let axisP;
+
 function preload() {
     globe = loadImage('imgs/globe.jpg');
 }
@@ -48,10 +50,15 @@ function setup() {
 }
 
 function draw() {
+    let axis = createVector(width/2, height/2, 0);
+    let a2 = createVector(1, 0, 1);
+    axisP = axis.cross(a2);
+
     background(255);
     ambientLight(100);
     pointLight(255, 255, 255, 0, 0, 1);
     push();
+    // rotate(0, width/2, axisP.y, 0);
     translate(width/2, height/2, 0);
     fill(90);
     texture(globe);
@@ -77,12 +84,14 @@ function draw() {
             // rock.accelerateRock(0.1, 0.001);
             rock.moveRock();
         } 
-        if (rock.pos.x <= width/2 + 120 && rock.pos.x >= width/2 - 120 && rock.pos.z <= 120 && rock.pos.z >= -120) {
-            force = 9.8;
+        if (rock.pos.x <= width/2 + 80 && rock.pos.x >= width/2 - 80 && rock.pos.z <= 80 && rock.pos.z >= -80) {
+            force = 0.98;
             rock.rotateRock(rock.checkCenter());
-            // rock.accelerateRock1(cos(rock.rotation) * force, sin(rock.rotation) * force);
-            rock.moveRock1();
+            rock.accelerateRock(cos(rock.rotation) * force, sin(rock.rotation) * force);
+            // rock.moveRock1();
         } 
+
+        // if (rock.pos.x <= width/2 + 120 && rock.pos.x >= width/2 - 120 && rock.pos.z <= 120 && rock.pos.z >= -120) {
             force = 0.1;
             // rock.rotateRock();
             rock.rotateRock(rock.checkCenter());
