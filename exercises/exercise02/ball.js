@@ -27,23 +27,29 @@ class Ball {
 		this.y = this.y + this.vy;
 	}
 
+	// function to set position of x and y
+	setPos(x,y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	// function to bounce the ball
     bounceBall() {
         this.x += this.vx;
 		this.y += this.vy;
 
         if (this.x > width - this.radius*2) {
-            this.vx -= 3;
+            this.vx -= 2;
         } 
         if (this.x < this.radius*2 ) {
-            this.vx += 3;
+            this.vx += 2;
         }
 
-        if (this.y > height - this.radius*2 ) {
-            this.vy -= 3;
+        if (this.y > height - this.radius*2) {
+            this.vy -= 2;
         } 
         if (this.y < this.radius*2 ) {
-            this.vy += 3;
+            this.vy += 2;
         }
     }
 }

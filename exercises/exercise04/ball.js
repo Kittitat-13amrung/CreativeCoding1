@@ -27,6 +27,16 @@ class Ball {
 		this.y = this.y + this.vy;
 	}
 
+	setPos(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	setSpeed(vx, vy) {
+		this.vx = vx;
+		this.vy = vy;
+	}
+
     // function to accelerate the ball
     accelerateBall(ax, ay) {
         this.vx += ax;

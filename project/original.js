@@ -5,7 +5,7 @@ class Rock {
         // this.x = random(-300, width+300);
         // this.z = random(this.spawnHeight);
         this.rotation = this.checkCenter();
-        this.size = random(1, 8);
+        this.size = params.radius;
         this.vx = random(0, 1);
         this.vy = random(0, 1);
         this.vz = random(0, 1);

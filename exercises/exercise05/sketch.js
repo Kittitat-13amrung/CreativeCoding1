@@ -14,7 +14,7 @@ function draw() {
     // draw ship on the canvas
     ship1.drawShip();
     angle = vr;
-    console.log(angle);
+    // console.log(angle);
     if (keyIsDown(LEFT_ARROW)) {
         vr -= 0.1 * PI;
         ship1.rotateShip(vr);

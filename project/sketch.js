@@ -28,6 +28,12 @@ let globe;
 let meteor;
 let angle = 0;
 let speed = 0.05;
+let params = {
+    radius: 1,
+    radiusMin: 1,
+    radiusMax: 8
+}
+
 
 let a;
 
@@ -37,6 +43,7 @@ function preload() {
 
 function setup() {
     createCanvas(750, 500, WEBGL);
+    let gui = createGui('Comets');
     var easy=createEasyCam();
     pos = createVector(width/2, height/2, 0);
     let state = {
@@ -48,6 +55,8 @@ function setup() {
     easy.setState(state, 1000); // animate to state over the period of 1 second
     easy.setDistanceMin(150);
     easy.setDistanceMax(250);
+
+    gui.addObject(params);
     // easy.rotate(pos.x, pos.y, pos.z, millis()/1000);
     // rock = new Rock();
     meteor = rocks.push(new Rock());
