@@ -5,26 +5,35 @@ class Rock {
         // this.x = random(-300, width+300);
         // this.z = random(this.spawnHeight);
         this.rotation = this.checkCenter();
-        this.size = random(1, 50);
+        this.size = random(1, 8);
         this.vx = random(0, 1);
         this.vy = random(0, 1);
         this.vz = random(0, 1);
+        this.orbital = false;
+        this.angle = 0;
     }
 
     render() {
-        // translate(width/2, height/2);
         push();
-        translate(this.pos.x, this.pos.y);
-        rotate(this.rotation);
+        if (this.orbital === true) {
+            translate(width/2, height/2);
+            // translate(this.pos.x, this.pos.y);
+            translate(110 * cos(angle), 110 * sin(angle), 0);
+            this.angle += speed;
+        } else if (this.orbital === false) {
+            translate(this.pos.x, this.pos.y + 10);
+            rotate(this.rotation);
+        }
+        // rotate(this.rotation);
         fill(90);
-        // sphere(10);
-		beginShape();
-		vertex(10, 0, 0);
-		vertex(-10, 0, 10);
-		vertex(-5, 0, 0);
-		vertex(-10, 0, -10);
-		vertex(10, 0, 0);
-		endShape();
+        sphere(this.size);
+		// beginShape();
+		// vertex(10, 0, 0);
+		// vertex(-10, 0, 10);
+		// vertex(-5, 0, 0);
+		// vertex(-10, 0, -10);
+		// vertex(10, 0, 0);
+		// endShape();
         pop();
     }
 
@@ -52,6 +61,12 @@ class Rock {
         return centerPos;
     }
 
+    checkOrbital() {
+        if (this.pos.x <= width/2 + 30 && this.pos.x >= width/2 - 30 && this.pos.z <= 30 && this.pos.z >= -30) {
+            this.orbital = true;
+        }
+    }
+
     moveRock()
 	{
 		this.pos.x = this.pos.x + this.vx;
@@ -73,7 +88,7 @@ class Rock {
 	}
 
     orbit() {
-        if (this.pos.x <= width/2 + 10 && this.pos.x >= width/2 - 10 && this.pos.y <= height/2 + 30 && this.pos.y >= height/2 - 30) {
+        if (this.pos.x <= width/2 + 20 && this.pos.x >= width/2 - 20 && this.pos.y <= height/2 + 50 && this.pos.y >= height/2 - 50) {
             return true;
         } else {
             return false
