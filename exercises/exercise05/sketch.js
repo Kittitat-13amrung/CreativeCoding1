@@ -15,18 +15,22 @@ function draw() {
     ship1.drawShip();
     angle = vr;
     // console.log(angle);
+
+    // rotate ship to the left
     if (keyIsDown(LEFT_ARROW)) {
         vr -= 0.1 * PI;
         ship1.rotateShip(vr);
         // console.log(vr);
     }
     
+    // rotate ship to the right
     if (keyIsDown(RIGHT_ARROW)) {
         vr += 0.1 * PI;
         ship1.rotateShip(vr);
         // console.log(vr);
     }
     
+    // accelerate ship
     if (keyIsDown(UP_ARROW)) {
         let ax, ay;
         force = 0.3;
@@ -38,6 +42,7 @@ function draw() {
         ship1.setShowFlame(true);
         ship1.moveShip();
         ship1.accelerateShip(ax, ay);
+    // if not pressed hide flames
     } else {
         force = 0;
         ship1.setShowFlame(false);

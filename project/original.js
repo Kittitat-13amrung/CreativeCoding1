@@ -1,11 +1,10 @@
 class Rock {
-    constructor() {
-        this.spawnHeight = [-300, height+300];
-        this.pos = createVector(random(-300, width+300), random(this.spawnHeight));
+    constructor(img) {
+        this.pos = createVector(random(-300, width+300), random(-300, height+300));
         // this.x = random(-300, width+300);
         // this.z = random(this.spawnHeight);
         this.rotation = this.checkCenter();
-        this.size = params.radius;
+        this.size = random(1, 8);
         this.vx = random(0, 1);
         this.vy = random(0, 1);
         this.vz = random(0, 1);
@@ -18,15 +17,27 @@ class Rock {
         if (this.orbital === true) {
             translate(width/2, height/2);
             // translate(this.pos.x, this.pos.y);
-            translate(110 * cos(angle), 110 * sin(angle), 0);
+            rotate(this.rotation);
+            translate(60 * cos(angle), 60 * sin(angle), 0);
+            rotateZ(millis()/1000);
             this.angle += speed;
         } else if (this.orbital === false) {
             translate(this.pos.x, this.pos.y + 10);
             rotate(this.rotation);
+            rotateZ(-millis()/1000);
         }
         // rotate(this.rotation);
-        fill(90);
-        sphere(this.size);
+        noStroke();
+        texture(asteroid);
+        // fill(90);
+
+        if (params.Shape == "Sphere") {
+            sphere(this.size);
+        } else if (params.Shape == "Box") {
+            box(this.size);
+        } else if (params.Shape == "Cylinder") {
+            cylinder(this.size, 20);
+        }
 		// beginShape();
 		// vertex(10, 0, 0);
 		// vertex(-10, 0, 10);
@@ -35,6 +46,10 @@ class Rock {
 		// vertex(10, 0, 0);
 		// endShape();
         pop();
+    }
+
+    setRadius(rad) {
+        this.size = rad;
     }
 
     accelerateRock(ax, ay) {
