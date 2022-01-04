@@ -12,7 +12,7 @@ function setup() {
     // Set new position for GUI 
     gui.setPosition(width - 200, 190);
     background(120);
-    noCursor();
+    // noCursor();
 }
 
 function draw() {
@@ -26,6 +26,7 @@ function draw() {
       }
       // QUESTION 2 PART 1
       else if (mode == 2) {
+        ellipse(width/2, height/2, 10);
         arrow1 = new Arrow();
         arrow1.drawMouseArrowCenter();
       }
