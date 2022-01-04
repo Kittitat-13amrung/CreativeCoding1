@@ -1,5 +1,5 @@
 // Width and Height
-let screenWidth = 1024;
+let screenWidth = 920;
 let screenHeight = 950;
 
 // Variables to preload images
